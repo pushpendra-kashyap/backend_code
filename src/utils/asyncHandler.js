@@ -1,13 +1,11 @@
-const ayscHandler = (requestHandler) => {
-  (req, res, next) => {
-    Promise.resolve(requestHandler(req, res.next)).catch((err) => next(err));
+const asyncHandler = (requestHandler) => {
+  return (req, res, next) => {
+    Promise.resolve(requestHandler(req, res, next)).catch((err) => next(err));
   };
 };
 
-export { ayscHandler };
-
-// const ayscHandler = (fun) => {
-//   async (req, res, next) => {
+// const asyncHandler = (fun) => {
+//   return async (req, res, next) => {
 //     try {
 //       await fun(req, res, next);
 //     } catch (error) {
@@ -18,3 +16,5 @@ export { ayscHandler };
 //     }
 //   };
 // };
+
+export { asyncHandler };
